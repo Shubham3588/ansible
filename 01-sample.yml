@@ -2,5 +2,5 @@
   hosts: all
   taske:
     - name: Print Hello
-      ansible.bulletin.debug:
+      ansible.bulltin.debug:
         msg: Hello
