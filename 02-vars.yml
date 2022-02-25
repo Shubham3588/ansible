@@ -32,5 +32,5 @@
     - name: Print URL in Task2
       ansible.builtin.debug:
        msg: URL == {{URL}}
-     vars:
-       URL: task2.example.com
+      vars:
+        URL: task2.example.com
