@@ -34,3 +34,5 @@
        msg: URL == {{URL}}
       vars:
         URL: task2.example.com
+
+# Scope of the task variable is only to that task, the other task cannot access the other task variables.
