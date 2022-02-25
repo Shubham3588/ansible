@@ -61,4 +61,4 @@
         msg: Hostname = {{ansible_hostname}}
     - name: Print Processor Info
       ansible.builtin.debug:
-        msg: "{{ansible_preprocessor}}"
+        msg: Preprocessor = "{{ansible_preprocessor}}"
