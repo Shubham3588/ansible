@@ -7,46 +7,46 @@
       ansible.builtin.debug:
         msg: URL = {{URL}}
 
-#Note: If we declare a variable in PLAY level then all the tasks can access that variable.
-
-- name: variables from File in play level
-  hosts: all
-  vars_files:
-    - sample-vars.yml
-  tasks:
-    - name: Print URL
-      ansible.builtin.debug:
-        msg: URL = {{URL}}
-
-#We can load all the variables from a file, Since it is on a play level, all the tasks can access those variables
-
-- name: Variable on task level
-  hosts: all
-  tasks:
-    - name: Print URL in Task1
-      ansible.builtin.debug:
-        msg: URL == {{URL}}
-      vars:
-        URL: task1.example.com
-
-    - name: Print URL in Task2
-      ansible.builtin.debug:
-       msg: URL == {{URL}}
-      vars:
-        URL: task2.example.com
-
-# Scope of the task variable is only to that task, the other task cannot access the other task variables.
-
-## Variable Precedence
-- name: Variable Precedence
-  hosts: all
-  vars:
-    URL: play.example.com
-  vars_files:
-    - sample-vars.yml
-  tasks:
-    - name: Print URL
-      ansible.builtin.debug:
-        msg: URL == {{URL}}
-      vars:
-        URL: task.example.com
+##Note: If we declare a variable in PLAY level then all the tasks can access that variable.
+#
+#- name: variables from File in play level
+#  hosts: all
+#  vars_files:
+#    - sample-vars.yml
+#  tasks:
+#    - name: Print URL
+#      ansible.builtin.debug:
+#        msg: URL = {{URL}}
+#
+##We can load all the variables from a file, Since it is on a play level, all the tasks can access those variables
+#
+#- name: Variable on task level
+#  hosts: all
+#  tasks:
+#    - name: Print URL in Task1
+#      ansible.builtin.debug:
+#        msg: URL == {{URL}}
+#      vars:
+#        URL: task1.example.com
+#
+#    - name: Print URL in Task2
+#      ansible.builtin.debug:
+#       msg: URL == {{URL}}
+#      vars:
+#        URL: task2.example.com
+#
+## Scope of the task variable is only to that task, the other task cannot access the other task variables.
+#
+### Variable Precedence
+#- name: Variable Precedence
+#  hosts: all
+#  vars:
+#    URL: play.example.com
+#  vars_files:
+#    - sample-vars.yml
+#  tasks:
+#    - name: Print URL
+#      ansible.builtin.debug:
+#        msg: URL == {{URL}}
+#      vars:
+#        URL: task.example.com
