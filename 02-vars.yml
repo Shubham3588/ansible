@@ -18,23 +18,23 @@
       ansible.builtin.debug:
         msg: URL = {{URL}}
 
-##We can load all the variables from a file, Since it is on a play level, all the tasks can access those variables
-#
-#- name: Variable on task level
-#  hosts: all
-#  tasks:
-#    - name: Print URL in Task1
-#      ansible.builtin.debug:
-#        msg: URL == {{URL}}
-#      vars:
-#        URL: task1.example.com
-#
-#    - name: Print URL in Task2
-#      ansible.builtin.debug:
-#       msg: URL == {{URL}}
-#      vars:
-#        URL: task2.example.com
-#
+#We can load all the variables from a file, Since it is on a play level, all the tasks can access those variables
+
+- name: Variable on task level
+  hosts: all
+  tasks:
+    - name: Print URL in Task1
+      ansible.builtin.debug:
+        msg: URL == {{URL}}
+      vars:
+        URL: task1.example.com
+
+    - name: Print URL in Task2
+      ansible.builtin.debug:
+       msg: URL == {{URL}}
+      vars:
+        URL: task2.example.com
+
 ## Scope of the task variable is only to that task, the other task cannot access the other task variables.
 #
 ### Variable Precedence
