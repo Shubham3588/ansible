@@ -4,13 +4,6 @@ LOG=/tmp/instance-create.log
 rm -f $LOG
 
 INSTANCE_CREATE() {
-
-if [ "$1" == "list" ]; then
-  aws ec2 describe-instances  --query "Reservations[*].Instances[*].{PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}"  --output table
-  exit
-fi
-
-INSTANCE_CREATE() {
   INSTANCE_NAME=$1
   if [ -z "${INSTANCE_NAME}" ]; then
     echo -e "\e[1;33mInstance Name Argument is needed\e[0m"
@@ -59,7 +52,6 @@ INSTANCE_CREATE() {
   ZONE_ID=$(aws route53 list-hosted-zones --query "HostedZones[*].{name:Name,ID:Id}" --output text | grep roboshop.internal  | awk '{print $1}' | awk -F / '{print $3}')
   aws route53 change-resource-record-sets --hosted-zone-id $ZONE_ID --change-batch file:///tmp/record.json --output text &>>$LOG
   echo -e "\e[1m DNS Record Created\e[0m"
-}
 }
 
 ### Main Program
