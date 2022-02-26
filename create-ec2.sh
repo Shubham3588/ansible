@@ -4,12 +4,20 @@ LOG=/tmp/instance-create.log
 rm -f $LOG
 
 INSTANCE_CREATE() {
+
+if [ "$1" == "list" ]; then
+  aws ec2 describe-instances  --query "Reservations[*].Instances[*].{PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}"  --output table
+  exit
+fi
+
+INSTANCE_CREATE() {
   INSTANCE_NAME=$1
   if [ -z "${INSTANCE_NAME}" ]; then
     echo -e "\e[1;33mInstance Name Argument is needed\e[0m"
     exit
   fi
-  INSTANCE_NAME="$1-dev"
+
+  AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query 'Images[*].[ImageId]' --output text)
 
   if [ -z "${AMI_ID}" ]; then
     echo -e "\e[1;31mUnable to find Image AMI_ID\e[0m"
@@ -52,11 +60,10 @@ INSTANCE_CREATE() {
   aws route53 change-resource-record-sets --hosted-zone-id $ZONE_ID --change-batch file:///tmp/record.json --output text &>>$LOG
   echo -e "\e[1m DNS Record Created\e[0m"
 }
+}
 
 ### Main Program
 
-AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query 'Images[*].[ImageId]' --output text)
-#AMI_ID=ami-0fe118ae150a71466
 
 if [ "$1" == "list" ]; then
   aws ec2 describe-instances  --query "Reservations[*].Instances[*].{PrivateIP:PrivateIpAddress,PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}"  --output table
