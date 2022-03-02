@@ -9,7 +9,7 @@
         - Raghu
     - name: Demo on Map Values, Each value is a match
       debug:
-        msg: Hello, {{item.name}}, welcome to {{item.course}} Training
+        msg: Hello, {{item.name}}, welcome to {{item.Course}} Training
       loop:
         - {name: Raghu, Course: DevOps}
         - {name: Raju, Course: AWS}
