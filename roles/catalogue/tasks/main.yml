@@ -1,1 +1,2 @@
-- name: SetUp repo file for NodeJs
+- name: setup repo file for NodeJs
+  ansible.builtin.shell: curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash -
