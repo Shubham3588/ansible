@@ -10,3 +10,5 @@
       debug:
         msg: Ubuntu
       tags: ubuntu
+
+# Note: Tags can be applicable for plays also
