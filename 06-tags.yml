@@ -6,4 +6,4 @@
         msg: Centos
     - name: Ubuntu
       debug:
-        msg:Ubuntu
+        msg: Ubuntu
