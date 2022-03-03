@@ -1,5 +1,5 @@
 - name: Demo on tags
-  host: localhost
+  hosts: localhost
   tasks:
     - name: Centos
       debug:
